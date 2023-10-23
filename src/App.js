@@ -1,101 +1,71 @@
+import { CalculatorWrapper, Display, Button, Section } from "./styles";
+import { useState } from "react";
 
-import Input from './components/Input';
-import Button from './components/Button';
+function App() {
+  const [expression, setExpression] = useState("");
 
-import { Container, Content, Row } from './styles';
-import { useState } from 'react';
-
-
-const App = () => {
-  const [currentNumber, setCurrentNumber] = useState('0');
-  const [firstNumber, setFirstNumber] = useState('0');
-  const [operation, setOperation] = useState('');
-
-  const handleOnClear = () => {
-    setCurrentNumber('0')
-    setFirstNumber('0')
-    setOperation('')
+  const handleButtonClick = (value) => {
+    if (value === "=") {
+      try {
+        setExpression(eval(expression).toString());
+      } catch (error) {
+        setExpression("Error");
+      }
+    } else if (value === "C") {
+      setExpression("");
+    } else {
+      setExpression(expression + value);
+    }
   };
 
-  const handleAddNumber = (num) => {
-    setCurrentNumber(prev => `${prev === '0' ? '' : prev}${num}`)
-  }
-
-  const handleSumNumbers = () => {
-
-    if(firstNumber === '0'){
-        setFirstNumber(String(currentNumber));
-        setCurrentNumber('0')
-        setOperation('+')
-    }else {
-      const sum = Number(firstNumber) + Number(currentNumber);
-      setCurrentNumber(String(sum))
-      setOperation('')
-    }
-
-  }
-
-  const handleMinusNumbers = () => {
-
-    if(firstNumber === '0'){
-        setFirstNumber(String(currentNumber));
-        setCurrentNumber('0')
-        setOperation('-')
-    }else {
-      const sum = Number(firstNumber) - Number(currentNumber);
-      setCurrentNumber(String(sum))
-      setOperation('')
-    }
-
-  }
-
-  const handleEquals = () => {
-
-    if(firstNumber !== '0' && operation !== '' && currentNumber !== '0'){
-        switch(operation){
-          case '+':
-            handleSumNumbers();
-            break;
-          case '-':
-            handleMinusNumbers();
-            break;
-          default: 
-            break;
-        }
-    }
-
-  }
-
   return (
-    <Container>
-      <Content>
-        <Input value={currentNumber}/>
-        <Row>
-          <Button label="x"/>
-          <Button label="/"/>
-          <Button label="c" onClick={handleOnClear}/>
-          <Button label="."/>
-        </Row>
-        <Row>
-          <Button label="7" onClick={() => handleAddNumber('7')}/>
-          <Button label="8" onClick={() => handleAddNumber('8')}/>
-          <Button label="9" onClick={() => handleAddNumber('9')}/>
-          <Button label="-" onClick={handleMinusNumbers}/>
-        </Row>
-        <Row>
-          <Button label="4" onClick={() => handleAddNumber('4')}/>
-          <Button label="5" onClick={() => handleAddNumber('5')}/>
-          <Button label="6" onClick={() => handleAddNumber('6')}/>
-          <Button label="+" onClick={handleSumNumbers}/>
-        </Row>
-        <Row>
-          <Button label="1" onClick={() => handleAddNumber('1')}/>
-          <Button label="2" onClick={() => handleAddNumber('2')}/>
-          <Button label="3" onClick={() => handleAddNumber('3')}/>
-          <Button label="=" onClick={handleEquals}/>
-        </Row>
-      </Content>
-    </Container>
+    <Section>
+      <h1>
+        <svg
+          width="26"
+          height="26"
+          viewBox="-10.5 -9.45 21 18.9"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="svg"
+        >
+          <circle cx="0" cy="0" r="2" fill="#61dafb"></circle>
+          <g stroke="#61dafb" stroke-width="1" fill="none">
+            <ellipse rx="10" ry="4.5"></ellipse>
+            <ellipse rx="10" ry="4.5" transform="rotate(60)"></ellipse>
+            <ellipse rx="10" ry="4.5" transform="rotate(120)"></ellipse>
+          </g>
+        </svg>
+        Calculadora React
+      </h1>
+      <CalculatorWrapper>
+        <Display value={expression} readOnly />
+        <div>
+          <Button onClick={() => handleButtonClick("7")}>7</Button>
+          <Button onClick={() => handleButtonClick("8")}>8</Button>
+          <Button onClick={() => handleButtonClick("9")}>9</Button>
+          <Button onClick={() => handleButtonClick("+")}>+</Button>
+        </div>
+        <div>
+          <Button onClick={() => handleButtonClick("4")}>4</Button>
+          <Button onClick={() => handleButtonClick("5")}>5</Button>
+          <Button onClick={() => handleButtonClick("6")}>6</Button>
+          <Button onClick={() => handleButtonClick("-")}>-</Button>
+        </div>
+        <div>
+          <Button onClick={() => handleButtonClick("1")}>1</Button>
+          <Button onClick={() => handleButtonClick("2")}>2</Button>
+          <Button onClick={() => handleButtonClick("3")}>3</Button>
+          <Button onClick={() => handleButtonClick("*")}>*</Button>
+        </div>
+        <div>
+          <Button onClick={() => handleButtonClick("0")}>0</Button>
+          <Button onClick={() => handleButtonClick("C")}>C</Button>
+          <Button onClick={() => handleButtonClick("=")}>=</Button>
+          <Button onClick={() => handleButtonClick("/")}>/</Button>
+        </div>
+      </CalculatorWrapper>
+    </Section>
   );
 }
 

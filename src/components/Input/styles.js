@@ -1,29 +1,31 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const InputContainer = styled.div`
+  width: 100%;
+  height: 75px;
+  background-color: #2f2519;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  font-size: 24px;
+  font-family: "Roboto";
+
+  input {
     width: 100%;
     height: 75px;
-    background-color: #AAAAFF;
-
+    background-color: #2f2519;
+    border: 0;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0 10px;
     font-size: 24px;
-    font-family: 'Roboto';
-    
+    font-family: "Roboto";
+    border-radius: 10px;
 
-    input {
-        width: 100%;
-        height: 75px;
-        background-color: #AAAAFF;
-        border: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        padding: 0 10px;
-        font-size: 24px;
-        font-family: 'Roboto';
-        color: #FFFFFF;
-    }
-`
+    color: #ffffff;
+  }
+`;
